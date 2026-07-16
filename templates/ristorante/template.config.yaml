@@ -1,0 +1,43 @@
+# Template Config: Ristorante
+# Template version: 1.0.0
+
+template:
+  name: ristorante
+  version: 1.0.0
+  description: "Agente AI per ristoranti italiani"
+
+model:
+  provider: deepseek
+  default: deepseek-v4-flash
+
+skills:
+  recommended:
+    - google-workspace
+    - maps
+    - web-summary
+
+gateway:
+  enabled: true
+  telegram_bot: true
+
+# ─── Cron job predefiniti ──────────────────────────────────
+cron:
+  - schedule: "0 9 * * *"
+    prompt: "Check recensioni online del ristorante. Riassumi."
+    deliver: origin
+
+# ─── Sicurezza ──────────────────────────────────────────────
+security:
+  disabled_toolsets:
+    - terminal
+    - file
+    - cronjob
+    - delegation
+    - code_execution
+    - session_search
+    - homeassistant
+
+files:
+  soul: SOUL.md
+  onboarding: onboarding.md
+  cron: cron.md
