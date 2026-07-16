@@ -1,0 +1,43 @@
+# Template Config: Farmacia
+# Template version: 1.0.0
+# Usare con: speats-agent/scripts/create-agent.sh
+
+template:
+  name: farmacia
+  version: 1.0.0
+  description: "Agente AI per farmacie svizzere"
+
+model:
+  provider: deepseek
+  default: deepseek-v4-flash
+  fallback: openai/gpt-4o-mini
+
+skills:
+  required:
+    - pharmacy-ai-assistant
+    - swiss-pharma-database
+  recommended:
+    - obsidian
+    - google-workspace
+    - nano-pdf
+    - ocr-and-documents
+
+mcp_servers:
+  enabled: false  # attivare dopo setup Odoo per CRM
+
+gateway:
+  enabled: true
+  telegram_bot: true  # crea bot Telegram dedicato
+
+cron:
+  - schedule: "0 8 * * *"
+    prompt: "Controlla scadenze farmaci nei prossimi 30 giorni. Riassumi in 3 punti."
+    deliver: origin
+  - schedule: "0 9 * * 1"
+    prompt: "Riepilogo settimanale: turni, scadenze, aggiornamenti normativi."
+    deliver: origin
+
+files:
+  soul: SOUL.md
+  onboarding: onboarding.md
+  cron: cron.md

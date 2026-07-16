@@ -1,17 +1,38 @@
 #!/bin/bash
-# Health check di tutti gli agenti clienti
-# Mostra status, uptime, ultimo messaggio
+# ============================================================
+# health-check.sh — Mostra status di tutti gli agenti clienti
+# ============================================================
+set -e
 
-echo "🏥 Health Check Speats"
-echo "====================="
+SPEATS_HOME="$HOME/.hermes/profiles"
+TOTAL=0
+ONLINE=0
+OFFLINE=0
+
+echo "╔══════════════════════════════════════════╗"
+echo "║       🏥 Health Check — Speats          ║"
+echo "╚══════════════════════════════════════════╝"
 echo ""
-echo "📊 Totale agenti: TBD"
-echo "✅ Online: TBD"
-echo "❌ Offline: TBD"
+
+for profile in "$SPEATS_HOME"/*/; do
+  name=$(basename "$profile")
+  TOTAL=$((TOTAL + 1))
+  
+  # Check gateway status via systemd
+  if systemctl --user is-active "hermes-$name" &>/dev/null 2>&1; then
+    echo "  ✅ $name    Online"
+    ONLINE=$((ONLINE + 1))
+  elif [[ -f "$profile/.env" ]] && grep -q "TELEGRAM_BOT_TOKEN" "$profile/.env" 2>/dev/null; then
+    echo "  ⚠️  $name    Configurato ma fermo"
+  else
+    echo "  ⬜ $name    Non configurato"
+  fi
+done
+
 echo ""
-echo "Dettaglio:"
-echo "  farmacia-bernardi  ✅ Online  (ultimo msg: 10:32)"
-echo "  farmacia-guidi     ✅ Online  (ultimo msg: 09:15)"
-echo "  ristorante-qualita ❌ Offline (da 2 ore)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  📊 $TOTAL profili  |  ✅ $ONLINE online"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "ℹ️  Usare: hermes profile list"
+echo "  💡 Avvia un agente fermo:"
+echo "     <nome-profilo> gateway start"
