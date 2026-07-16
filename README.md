@@ -29,6 +29,37 @@ Ogni cliente riceve:
 
 Un server centralizzato, tanti profili Hermes isolati. Vedi `ARCHITECTURE.md`.
 
+## Template disponibili
+
+| Template | Cliente | SOUL | Security |
+|----------|---------|------|----------|
+| 💊 `farmacia` | TopPharm Muhen | Bilingue IT/DE, limiti assoluti | 🔒 Tool pericolosi bloccati |
+| 🍝 `ristorante` | La Qualità | Bilingue IT/DE, limiti assoluti | 🔒 Tool pericolosi bloccati |
+
+### Quick start
+```bash
+# Crea un nuovo agente
+./scripts/create-agent.sh --name farmacia-xxxx --template farmacia --bot-token "..."
+
+# Aggiorna tutti gli agenti di un template
+./scripts/update-templates.sh --template farmacia
+
+# Stato di tutti gli agenti
+./scripts/health-check.sh
+```
+
+### Pattern
+1. `create-agent.sh` → profilo + SOUL.md + security + gateway
+2. Cliente scrive al bot → pairing → autorizzi
+3. Cliente dice "impara dal nostro sito" → bot naviga, estrae, memorizza
+4. Fatto — l'agente sa tutto del cliente
+
 ## Stato
 
 🚧 Progetto in fase iniziale — MVP in sviluppo.
+- ✅ Template farmacia (TopPharm Muhen)
+- ✅ Template ristorante (La Qualità)
+- ✅ Security (tool pericolosi disabilitati + limiti nel SOUL)
+- ✅ Gateway systemd per ogni profilo
+- ⬜ Onboarding automatico clienti
+- ⬜ Dashboard centrale
