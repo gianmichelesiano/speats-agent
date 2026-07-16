@@ -106,6 +106,9 @@ agent:
     - cronjob
     - process
     - delegate_task
+    - read_file
+    - search_files
+    - session_search
     - ha_call_service
     - ha_get_state
     - ha_list_entities
