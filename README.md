@@ -63,3 +63,15 @@ Un server centralizzato, tanti profili Hermes isolati. Vedi `ARCHITECTURE.md`.
 - ✅ Gateway systemd per ogni profilo
 - ⬜ Onboarding automatico clienti
 - ⬜ Dashboard centrale
+
+## Speats Dashboard
+
+La nuova dashboard operativa si trova in [`dashboard/`](dashboard/README.md). Usa React + FastAPI + PostgreSQL e rimane complementare a Odoo: gestione e osservabilità degli agenti qui, CRM e fatturazione in Odoo.
+
+Per provarla con dati dimostrativi:
+
+```bash
+cd dashboard
+npm install
+VITE_DEMO_MODE=true npm run dev
+```

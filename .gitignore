@@ -1,0 +1,18 @@
+# Local analysis
+graphify-out/
+
+# Frontend
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.env
+
+# Python
+dashboard/backend/.venv/
+dashboard/backend/.env
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Local files
+.DS_Store

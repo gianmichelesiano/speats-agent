@@ -1,0 +1,1 @@
+"""Speats Dashboard API."""

@@ -1,0 +1,33 @@
+[project]
+name = "speats-dashboard-api"
+version = "0.1.0"
+description = "Operational control plane for Speats agents"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "alembic>=1.16.4",
+  "fastapi>=0.116.1",
+  "psycopg[binary]>=3.2.9",
+  "pydantic-settings>=2.10.1",
+  "pyyaml>=6.0.2",
+  "sqlalchemy>=2.0.41",
+  "uvicorn[standard]>=0.35.0",
+]
+
+[dependency-groups]
+dev = [
+  "httpx>=0.28.1",
+  "pytest>=8.4.1",
+  "ruff>=0.12.4",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

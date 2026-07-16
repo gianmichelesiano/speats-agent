@@ -8,7 +8,7 @@ set -e
 
 # ─── Config ──────────────────────────────────────────────────
 SPEATS_HOME="$HOME/.hermes"
-TEMPLATES_DIR="$HOME/speats/templates"
+TEMPLATES_DIR="${SPEATS_TEMPLATES_DIR:-$HOME/speats/templates}"
 
 # ─── Colori ───────────────────────────────────────────────────
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
@@ -20,7 +20,7 @@ step() { echo -e "\n${CYAN}━━━ $1 ━━━${NC}"; }
 # ─── Parse argomenti ─────────────────────────────────────────
 NAME=""
 TEMPLATE="farmacia"  # default
-BOT_TOKEN=""
+BOT_TOKEN="${SPEATS_BOT_TOKEN:-}"
 
 while [[ $# -gt 0 ]]; do
   case $1 in
