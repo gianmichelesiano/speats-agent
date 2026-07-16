@@ -93,8 +93,14 @@ else
   warn "  echo 'TELEGRAM_BOT_TOKEN=123:ABC' >> $PROFILE_DIR/.env"
 fi
 
-# ─── 6. Attiva gateway ───────────────────────────────────────
-step "6/6 — Attiva e avvia"
+# ─── 6. Applica restrizioni di sicurezza ────────────────────
+step "6/7 — Applica restrizioni di sicurezza"
+DISABLED_TOOLS='["terminal", "skill_manage", "write_file", "patch", "cronjob", "process", "delegate_task", "ha_call_service", "ha_get_state", "ha_list_entities", "ha_list_services"]'
+HERMES_HOME="$PROFILE_DIR" hermes config set agent.disabled_toolsets "$DISABLED_TOOLS" 2>/dev/null
+log "Tool pericolosi disabilitati"
+
+# ─── 7. Attiva gateway ──────────────────────────────────────
+step "7/7 — Attiva e avvia"
 HERMES_HOME="$PROFILE_DIR" hermes config set gateway.enabled true 2>/dev/null
 log "Gateway abilitato"
 
@@ -106,7 +112,9 @@ echo -e "${GREEN}═════════════════════
 echo ""
 echo -e "  ${CYAN}Profilo:${NC}     $PROFILE_DIR"
 echo -e "  ${CYAN}Template:${NC}    $TEMPLATE"
-echo -e "  ${CYAN}Avvia con:${NC}   HERMES_HOME=$PROFILE_DIR hermes gateway run"
+echo -e "  ${CYAN}Tool pericolosi:${NC} disabilitati (terminal, write, cron...)"
+echo ""
+echo "  Avvia con:  toppharm-muhen gateway install && toppharm-muhen gateway start"
 echo ""
 echo "  Dopo il primo avvio, il cliente riceve un codice di pairing."
 echo "  Autorizzalo con:  $NAME pairing approve telegram <CODICE>"

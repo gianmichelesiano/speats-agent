@@ -1,10 +1,10 @@
 # Template Config: Farmacia
-# Template version: 1.0.0
+# Template version: 1.1.0
 # Usare con: speats-agent/scripts/create-agent.sh
 
 template:
   name: farmacia
-  version: 1.0.0
+  version: 1.1.0
   description: "Agente AI per farmacie svizzere"
 
 model:
@@ -12,6 +12,7 @@ model:
   default: deepseek-v4-flash
   fallback: openai/gpt-4o-mini
 
+# ─── Skills da installare ──────────────────────────────────
 skills:
   required:
     - pharmacy-ai-assistant
@@ -20,23 +21,39 @@ skills:
     - obsidian
     - google-workspace
     - nano-pdf
-    - ocr-and-documents
 
+# ─── MCP ────────────────────────────────────────────────────
 mcp_servers:
-  enabled: false  # attivare dopo setup Odoo per CRM
+  enabled: false
 
+# ─── Gateway ────────────────────────────────────────────────
 gateway:
   enabled: true
-  telegram_bot: true  # crea bot Telegram dedicato
+  telegram_bot: true
 
+# ─── Cron job predefiniti ──────────────────────────────────
 cron:
   - schedule: "0 8 * * *"
-    prompt: "Controlla scadenze farmaci nei prossimi 30 giorni. Riassumi in 3 punti."
-    deliver: origin
-  - schedule: "0 9 * * 1"
-    prompt: "Riepilogo settimanale: turni, scadenze, aggiornamenti normativi."
+    prompt: "Controlla scadenze farmaci nei prossimi 30 giorni."
     deliver: origin
 
+# ─── Sicurezza ──────────────────────────────────────────────
+# L'agente cliente NON deve poter modificare se stesso o eseguire comandi.
+security:
+  disabled_toolsets:
+    - terminal          # niente shell (pericoloso)
+    - skill_manage      # niente modifica skills
+    - write_file        # niente scrittura file
+    - patch             # niente modifica file
+    - cronjob           # niente cron autonomo
+    - process           # niente processi bg
+    - delegate_task     # niente sub-agenti
+    - ha_call_service   # niente home assistant
+    - ha_get_state
+    - ha_list_entities
+    - ha_list_services
+
+# ─── File template ─────────────────────────────────────────
 files:
   soul: SOUL.md
   onboarding: onboarding.md
