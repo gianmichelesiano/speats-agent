@@ -100,19 +100,12 @@ cat >> "$PROFILE_DIR/config.yaml" << 'YAML'
 agent:
   disabled_toolsets:
     - terminal
-    - skill_manage
-    - write_file
-    - patch
+    - file
     - cronjob
-    - process
-    - delegate_task
-    - read_file
-    - search_files
+    - delegation
+    - code_execution
     - session_search
-    - ha_call_service
-    - ha_get_state
-    - ha_list_entities
-    - ha_list_services
+    - homeassistant
 YAML
 log "Tool pericolosi disabilitati"
 
