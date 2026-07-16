@@ -41,14 +41,14 @@ cron:
 # L'agente cliente NON deve poter modificare se stesso o eseguire comandi.
 security:
   disabled_toolsets:
-    - terminal          # niente shell (pericoloso)
-    - skill_manage      # niente modifica skills
-    - write_file        # niente scrittura file
-    - patch             # niente modifica file
-    - cronjob           # niente cron autonomo
-    - process           # niente processi bg
-    - delegate_task     # niente sub-agenti
-    - ha_call_service   # niente home assistant
+    - terminal
+    - skill_manage
+    - write_file
+    - patch
+    - cronjob
+    - process
+    - delegate_task
+    - ha_call_service
     - ha_get_state
     - ha_list_entities
     - ha_list_services

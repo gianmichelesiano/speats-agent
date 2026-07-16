@@ -95,8 +95,22 @@ fi
 
 # ─── 6. Applica restrizioni di sicurezza ────────────────────
 step "6/7 — Applica restrizioni di sicurezza"
-DISABLED_TOOLS='["terminal", "skill_manage", "write_file", "patch", "cronjob", "process", "delegate_task", "ha_call_service", "ha_get_state", "ha_list_entities", "ha_list_services"]'
-HERMES_HOME="$PROFILE_DIR" hermes config set agent.disabled_toolsets "$DISABLED_TOOLS" 2>/dev/null
+# Scrive la lista YAML corretta (hermes config set non supporta liste)
+cat >> "$PROFILE_DIR/config.yaml" << 'YAML'
+agent:
+  disabled_toolsets:
+    - terminal
+    - skill_manage
+    - write_file
+    - patch
+    - cronjob
+    - process
+    - delegate_task
+    - ha_call_service
+    - ha_get_state
+    - ha_list_entities
+    - ha_list_services
+YAML
 log "Tool pericolosi disabilitati"
 
 # ─── 7. Attiva gateway ──────────────────────────────────────
